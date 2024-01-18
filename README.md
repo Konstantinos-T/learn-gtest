@@ -77,3 +77,42 @@ TEST(FactorialTest, HandlesPositiveInput) {
 GoogleTest groups the test results by test suites, so logically related tests should be in the same test suite; in other words, the first argument to their TEST() should be the same. In the above example, we have two tests, HandlesZeroInput and HandlesPositiveInput, that belong to the same test suite FactorialTest.
 
 When naming your test suites and tests, you should follow the same convention as for naming functions and classes.
+
+
+## Simple Tests
+
+To create a test:
+
+Use the TEST() macro to define and name a test function. These are ordinary C++ functions that don’t return a value. In this function, along with any valid C++ statements you want to include, use the various GoogleTest assertions to check values. The test’s result is determined by the assertions; if any assertion in the test fails (either fatally or non-fatally), or if the test crashes, the entire test fails. Otherwise, it succeeds.
+```
+TEST(TestSuiteName, TestName) {
+  ... test body ...
+}
+
+```
+
+TEST() arguments go from general to specific. The first argument is the name of the test suite, and the second argument is the test’s name within the test suite. Both names must be valid C++ identifiers, and they should not contain any underscores (_). A test’s full name consists of its containing test suite and its individual name. Tests from different test suites can have the same individual name.
+
+For example, let’s take a simple integer function:
+
+```
+int Factorial(int n); // Returns the factorial of n A test suite for this function might look like:
+
+// Tests factorial of 0.
+TEST(FactorialTest, HandlesZeroInput) {
+  EXPECT_EQ(Factorial(0), 1);
+}
+
+// Tests factorial of positive numbers.
+TEST(FactorialTest, HandlesPositiveInput) {
+  EXPECT_EQ(Factorial(1), 1);
+  EXPECT_EQ(Factorial(2), 2);
+  EXPECT_EQ(Factorial(3), 6);
+  EXPECT_EQ(Factorial(8), 40320);
+}
+
+```
+
+GoogleTest groups the test results by test suites, so logically related tests should be in the same test suite; in other words, the first argument to their TEST() should be the same. In the above example, we have two tests, HandlesZeroInput and HandlesPositiveInput, that belong to the same test suite FactorialTest.
+
+When naming your test suites and tests, you should follow the same convention as for naming functions and classes.
